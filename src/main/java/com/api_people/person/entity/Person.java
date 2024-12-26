@@ -1,9 +1,6 @@
 package com.api_people.person.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -17,13 +14,21 @@ public class Person {
 
     private String name;
     private String birthDate;
-    private String addres;
 
-    public Person(Long id, String name, String birthDate, String addres) {
+
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    public Person() {
+    }
+
+    public Person(Long id, String name, String birthDate, Address address) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
-        this.addres = addres;
+        this.address = address;
     }
 
     @Override
@@ -63,11 +68,13 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public String getAddres() {
-        return addres;
-    }
-
-    public void setAddres(String addres) {
-        this.addres = addres;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", address=" + address +
+                '}';
     }
 }
