@@ -1,10 +1,12 @@
 package com.api_people.person.entity;
 
+import com.api_people.person.dto.PersonDto;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_person")
 public class Person {
 
     @Id
@@ -16,20 +18,31 @@ public class Person {
     private String birthDate;
 
 
-
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 
+
+    public Person(PersonDto personDto) {
+        this.id = personDto.id();
+        this.name = personDto.name();
+        this.birthDate = personDto.birthDate();
+        this.address = personDto.address();
+
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Person() {
     }
 
-    public Person(Long id, String name, String birthDate, Address address) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.address = address;
-    }
+
 
     @Override
     public boolean equals(Object o) {

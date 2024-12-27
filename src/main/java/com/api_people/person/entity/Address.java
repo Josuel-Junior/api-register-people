@@ -1,13 +1,13 @@
 package com.api_people.person.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_address")
 public class Address {
 
     @Id
@@ -28,19 +28,24 @@ public class Address {
         this.street = street;
     }
 
+    @OneToMany(mappedBy = "address")
+    private List<Person> people;
 
     public Address() {
     }
 
     public Long getId() {
+
         return id;
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
     public String getStreet() {
+
         return street;
     }
 
@@ -49,18 +54,22 @@ public class Address {
     }
 
     public String getZipCode() {
+
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
+
         this.zipCode = zipCode;
     }
 
     public String getNumber() {
+
         return number;
     }
 
     public void setNumber(String number) {
+
         this.number = number;
     }
 
@@ -69,9 +78,9 @@ public class Address {
     }
 
     public void setCity(String city) {
+
         this.city = city;
     }
-
 
 
     @Override
