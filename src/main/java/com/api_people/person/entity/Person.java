@@ -1,69 +1,36 @@
 package com.api_people.person.entity;
-
-import com.api_people.person.dto.PersonDto;
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_person")
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
 
     private String name;
     private String birthDate;
 
-
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-
-    public Person(PersonDto personDto) {
-        this.id = personDto.id();
-        this.name = personDto.name();
-        this.birthDate = personDto.birthDate();
-        this.address = personDto.address();
-
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    public Person(UUID id, String name, String birthDate) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
     }
 
     public Person() {
     }
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -79,15 +46,5 @@ public class Person {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", address=" + address +
-                '}';
     }
 }
