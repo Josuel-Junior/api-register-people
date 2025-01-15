@@ -5,13 +5,10 @@ import com.api_people.person.entity.Person;
 import com.api_people.person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/person")
@@ -36,5 +33,12 @@ public class PersonController {
       return ResponseEntity.created(URI.create("./person/" + response.toString())).build();
     }
 
-    
+    @GetMapping
+    public ResponseEntity<List<Person>> getList(PersonDto personDto){
+
+        var listPerson = personService.list();
+
+        return  ResponseEntity.ok(listPerson);
+    }
+
 }

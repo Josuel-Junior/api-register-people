@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,12 @@ public class PersonService {
 
        return personSaved.getId();
 
+
+    }
+
+    public List<Person> list(){
+
+        return personRepository.findAll();
 
     }
 }
