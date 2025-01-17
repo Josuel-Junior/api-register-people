@@ -38,4 +38,12 @@ public class PersonService {
         return personRepository.findAll();
 
     }
+
+    public void delete(String personId){
+
+        var id = UUID.fromString(personId);
+
+        personRepository.deleteById(id);
+
+    }
 }
