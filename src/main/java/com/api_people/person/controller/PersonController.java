@@ -50,4 +50,13 @@ public class PersonController {
         return ResponseEntity.noContent().build();
     }
 
+
+    @PutMapping("/{personId}")
+    public ResponseEntity<Person> update(@PathVariable("personId") String personId, @RequestBody PersonDto personDto){
+
+        personService.updated(personId, personDto);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -46,4 +46,28 @@ public class PersonService {
         personRepository.deleteById(id);
 
     }
+
+    public void updated(String personId, PersonDto personDto){
+
+        var idPerson = UUID.fromString(personId);
+
+        var personEntity = personRepository.findById(idPerson);
+
+        if (personEntity.isPresent()){
+            var person = personEntity.get();
+
+            if (person.getName() != null){
+                person.setName(personDto.name());
+            }
+
+            if (person.getBirthDate() != null){
+                person.setBirthDate(personDto.birthDate());
+            }
+
+            personRepository.save(person);
+        }
+
+
+
+    }
 }

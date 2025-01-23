@@ -1,6 +1,8 @@
 package com.api_people.person.entity;
+
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,11 +17,26 @@ public class Person {
     private String name;
     private String birthDate;
 
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
+
+
     public Person(UUID id, String name, String birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
     }
+
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
 
     public Person() {
     }
