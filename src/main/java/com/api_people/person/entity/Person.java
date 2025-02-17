@@ -19,7 +19,7 @@ public class Person {
 
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses;
+    private List<Address> address;
 
 
     public Person(UUID id, String name, String birthDate) {
@@ -30,11 +30,11 @@ public class Person {
 
 
     public List<Address> getAddresses() {
-        return addresses;
+        return address;
     }
 
     public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+        this.address = addresses;
     }
 
 

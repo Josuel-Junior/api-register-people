@@ -1,6 +1,7 @@
 package com.api_people.person.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
 
@@ -20,25 +21,19 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
+    @JsonBackReference
     private Person person;
 
-    public Address() {
-    }
-
-    public Address(String street, String city, String zipCode, Integer number, UUID id) {
+    public Address(UUID id, String street, String city, String zipCode, Integer number, Person person) {
+        this.id = id;
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
         this.number = number;
-        this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public Address() {
     }
 
     public UUID getId() {
@@ -49,20 +44,20 @@ public class Address {
         this.id = id;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getStreet() {
         return street;
     }
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipCode() {
@@ -80,4 +75,13 @@ public class Address {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
 }

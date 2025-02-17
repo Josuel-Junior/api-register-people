@@ -3,7 +3,6 @@ package com.api_people.person.controller;
 import com.api_people.person.dto.PersonDto;
 import com.api_people.person.entity.Person;
 import com.api_people.person.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
