@@ -8,12 +8,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class PersonService {
 
-    
+
     private PersonRepository personRepository;
 
     public PersonService(PersonRepository personRepository) {
@@ -21,25 +22,32 @@ public class PersonService {
     }
 
 
-    public UUID save(PersonDto personDto){
+    public UUID save(PersonDto personDto) {
 
-        var entity = new Person(null,personDto.name(),personDto.birthDate());
+        var entity = new Person(null, personDto.name(), personDto.birthDate());
 
-       var personSaved = personRepository.save(entity);
+        var personSaved = personRepository.save(entity);
 
 
-       return personSaved.getId();
+        return personSaved.getId();
 
 
     }
 
-    public List<Person> list(){
+    public List<Person> list() {
 
         return personRepository.findAll();
 
     }
 
-    public void delete(String personId){
+    public Optional<Person> getPersonId(String personId) {
+        var idPerson = UUID.fromString(personId);
+
+        return personRepository.findById(idPerson);
+
+    }
+
+    public void delete(String personId) {
 
         var id = UUID.fromString(personId);
 
@@ -47,26 +55,25 @@ public class PersonService {
 
     }
 
-    public void updated(String personId, PersonDto personDto){
+    public void updated(String personId, PersonDto personDto) {
 
         var idPerson = UUID.fromString(personId);
 
         var personEntity = personRepository.findById(idPerson);
 
-        if (personEntity.isPresent()){
+        if (personEntity.isPresent()) {
             var person = personEntity.get();
 
-            if (person.getName() != null){
+            if (person.getName() != null) {
                 person.setName(personDto.name());
             }
 
-            if (person.getBirthDate() != null){
+            if (person.getBirthDate() != null) {
                 person.setBirthDate(personDto.birthDate());
             }
 
             personRepository.save(person);
         }
-
 
 
     }

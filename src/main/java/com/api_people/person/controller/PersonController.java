@@ -15,7 +15,6 @@ import java.util.UUID;
 public class PersonController {
 
 
-
     private PersonService personService;
 
     public PersonController(PersonService personService) {
@@ -27,22 +26,33 @@ public class PersonController {
     public ResponseEntity<Person> createdPerson(@RequestBody PersonDto personDto) {
 
 
-       var response = personService.save(personDto);
+        var response = personService.save(personDto);
 
 
-      return ResponseEntity.created(URI.create("./person/" + response.toString())).build();
+        return ResponseEntity.created(URI.create("./person/" + response.toString())).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getList(PersonDto personDto){
+    public ResponseEntity<List<Person>> getList() {
 
         var listPerson = personService.list();
 
-        return  ResponseEntity.ok(listPerson);
+        return ResponseEntity.ok(listPerson);
+    }
+
+    @GetMapping("/{personId}")
+    public ResponseEntity<Person> getPersonId(@PathVariable("personId") String id) {
+
+        var personOptional = personService.getPersonId(id);
+
+        if (personOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(personOptional.get());
     }
 
     @DeleteMapping("/{personId}")
-    public ResponseEntity<UUID> delete(@PathVariable("personId") String personId){
+    public ResponseEntity<UUID> delete(@PathVariable("personId") String personId) {
 
         personService.delete(personId);
 
@@ -51,7 +61,7 @@ public class PersonController {
 
 
     @PutMapping("/{personId}")
-    public ResponseEntity<Person> update(@PathVariable("personId") String personId, @RequestBody PersonDto personDto){
+    public ResponseEntity<Person> update(@PathVariable("personId") String personId, @RequestBody PersonDto personDto) {
 
         personService.updated(personId, personDto);
 
